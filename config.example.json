@@ -1,0 +1,13 @@
+{
+  "host": "app-ole-dhr",
+  "customer": {
+    "mail": "test@test.com",
+    "password": "qmtest11!",
+    "verify": true,
+    "balance": true
+  },
+  "purchase": {
+    "single": true,
+    "sub": false
+  }
+}
