@@ -5,16 +5,20 @@ export type LogOptions = {
   level?: LogLevel;
 };
 
+// TODO: can't import the type `ForegroundColors` from `node:util`
+const logWithColor = (color: any, message: unknown) =>
+  typeof message === 'string' ? styleText(color, message) : message;
+
 export const log = (message: unknown, options?: LogOptions) => {
   const { level = 'info' } = options ?? {};
 
   if (level === 'error') {
-    return console.error(typeof message === 'string' ? styleText('red', message) : message);
+    return console.error(logWithColor('red', message));
   }
 
   if (level === 'warn') {
-    return console.warn(typeof message === 'string' ? styleText('yellow', message) : message);
+    return console.warn(logWithColor('yellow', message));
   }
 
-  console.log(typeof message === 'string' ? styleText('blue', message) : message);
+  console.log(logWithColor('blue', message));
 };
