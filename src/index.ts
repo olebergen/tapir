@@ -1,4 +1,11 @@
-import { fetcher } from './utils/fetcher.ts';
+import { allPrs } from './utils/gh.ts';
 import { log } from './utils/log.ts';
 
-fetcher('https://jsonplaceholder.typicode.com/todos/1').then((res) => log(res));
+const args = process.argv.slice(2);
+
+try {
+  log.info(args);
+  allPrs().then(log.info);
+} catch (e) {
+  log.error(e);
+}
