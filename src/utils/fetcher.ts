@@ -1,10 +1,11 @@
 import { TapError } from './error.ts';
+import { log } from './log.ts';
 
 export const fetcher = async <T = unknown>(url: string, init?: RequestInit) => {
   const response = await fetch(url, init);
 
   if (!response.ok) {
-    throw new TapError('Failed to fetch', { status: response.status, url });
+    return log(new TapError('Failed to fetch', { status: response.status, url }));
   }
 
   const contentType = response.headers.get('content-type');

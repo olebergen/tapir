@@ -1,7 +1,11 @@
 {
   "name": "tapir",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ora": "^8.2.0",
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
     "@types/node": "^22.13.5",
