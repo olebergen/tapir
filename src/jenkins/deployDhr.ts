@@ -1,12 +1,15 @@
 import { fetcher } from '../utils/fetcher.ts';
 import { config } from '../config.ts';
-import { currentPathPrNumberJSON } from '../utils/gh.ts';
+import { currentPathPrNumberJSON, isGhAuthenticationError } from '../utils/gh.ts';
 
 export const deployDhr = async ({ testsystem, tag }: { testsystem: string; tag?: string }) => {
   let frontendVersion = tag;
 
   if (!frontendVersion) {
     const currentPr = await currentPathPrNumberJSON();
+    const authError = isGhAuthenticationError(currentPr.stderr);
+    if (authError) throw new Error('gh authentication error, try:  gh auth login');
+
     const prNumber = JSON.parse(currentPr.stdout).number;
 
     if (typeof prNumber !== 'number') throw new Error('PR number is not a number');
