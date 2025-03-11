@@ -1,12 +1,17 @@
 import { fetcher } from '../utils/fetcher.ts';
 import { config } from '../config.ts';
+import { currentPathPrNumberJSON } from '../utils/gh.ts';
 
 export const deployDhr = async ({ testsystem, tag }: { testsystem: string; tag?: string }) => {
   let frontendVersion = tag;
 
-  // todo: version from PR number via github api if none specified
   if (!frontendVersion) {
-    frontendVersion = 'latest';
+    const currentPr = await currentPathPrNumberJSON();
+    const prNumber = JSON.parse(currentPr.stdout).number;
+
+    if (typeof prNumber !== 'number') throw new Error('PR number is not a number');
+
+    frontendVersion = 'PR_' + prNumber;
   }
 
   const url = new URL(config.jenkins.url + config.jenkins.jobs.deployDhrFrontend);

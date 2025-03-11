@@ -18,3 +18,5 @@ export function styleMessage(color: ArgumentTypes<typeof styleText>[0], message:
 }
 
 export const trimWhitespace = (str: string) => str.replace(/^\s+|\s+$/g, '');
+
+export const trimTrailingNewline = (str: string) => str.replace(/[\r\n]+$/, '');

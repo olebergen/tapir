@@ -1,16 +1,20 @@
 import { spawn, type SpawnOptionsWithoutStdio } from 'child_process';
+import { trimTrailingNewline } from './string.ts';
 
 export const execute = (
   command: string,
   args: readonly string[],
-  options?: SpawnOptionsWithoutStdio
+  options?: SpawnOptionsWithoutStdio & { mute?: boolean }
 ): Promise<{ stdout: string; stderr: string }> => {
   return new Promise((resolve, reject) => {
-    const child = spawn(command, args, options);
-    const buffers = { stdout: [], stderr: [] };
+    const { mute, ...spawnOptions } = options ?? {};
+    const child = spawn(command, args, spawnOptions);
+    const buffers: { stdout: Buffer[]; stderr: Buffer[] } = { stdout: [], stderr: [] };
 
-    child.stdout.pipe(process.stdout);
-    child.stderr.pipe(process.stderr);
+    if (!mute) {
+      child.stdout.pipe(process.stdout);
+      child.stderr.pipe(process.stderr);
+    }
 
     child.stdout.on('data', (data) => buffers.stdout.push(data));
     child.stderr.on('data', (data) => buffers.stderr.push(data));
@@ -19,8 +23,8 @@ export const execute = (
 
     child.on('close', () => {
       resolve({
-        stdout: Buffer.concat(buffers.stdout).toString(),
-        stderr: Buffer.concat(buffers.stderr).toString(),
+        stdout: trimTrailingNewline(Buffer.concat(buffers.stdout).toString()),
+        stderr: trimTrailingNewline(Buffer.concat(buffers.stderr).toString()),
       });
     });
   });
