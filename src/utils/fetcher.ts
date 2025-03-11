@@ -1,12 +1,33 @@
+import ora from 'ora';
 import { TapError } from './error.ts';
-import { log } from './log.ts';
+import { print } from './log.ts';
+import { styleMessage } from './string.ts';
+import { color } from './color.ts';
 
 export const fetcher = async <T = unknown>(url: string, init?: RequestInit) => {
+  const startTime = Date.now();
+  const methodAndUrl = `${init?.method ? init.method : 'GET'} ${url}`;
+  const spinner = ora(methodAndUrl).start();
+
   const response = await fetch(url, init);
+  let { status }: { status: number | string } = response;
+
+  const responseTime = Date.now() - startTime;
+
+  if (status >= 200 && status < 300) status = styleMessage(color.success, status);
+  else if (status >= 300 && status < 400) status = styleMessage(color.warn, status);
+  else status = styleMessage(color.error, status);
+
+  const responseLog = `  ${methodAndUrl} ${status} ${responseTime}ms`;
+
+  spinner.stop();
 
   if (!response.ok) {
-    return log(new TapError('Failed to fetch', { status: response.status, url }));
+    print.info(responseLog);
+    return new TapError('Failed to fetch', { status: response.status, url });
   }
+
+  print.info(responseLog);
 
   const contentType = response.headers.get('content-type');
   if (contentType && contentType.indexOf('application/json') !== -1) {

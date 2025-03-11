@@ -4,6 +4,7 @@
     "module": "NodeNext",
     "target": "ES2017",
     "types": ["node"]
+    "strict": true,
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]

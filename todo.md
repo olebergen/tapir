@@ -1,10 +1,8 @@
+- chrome extension die bei npm links github im preview klickbar anzeigt
+
 - ora spinner
 
 - typescript lsp import mit ts statt ohne
-
----
-
-- alles aus config gibts auch als flag
 
 ---
 

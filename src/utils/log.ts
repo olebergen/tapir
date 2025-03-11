@@ -1,23 +1,19 @@
-import { styleText } from 'node:util';
+import { color } from './color.ts';
+import { styleMessage } from './string.ts';
 
 export type LogLevel = 'error' | 'warn' | 'info' | 'debug';
 
-// TODO: can't import the types from `styleText`, this is a hack
-type ArgumentTypes<F extends Function> = F extends (...args: infer A) => any ? A : never;
-const logWithColor = (color: ArgumentTypes<typeof styleText>[0], message: unknown) =>
-  typeof message === 'string' ? styleText(color, message) : message;
-
-export const log = {
+export const print = {
   debug: (message: unknown) => {
-    console.debug(logWithColor('cyan', message));
+    console.debug(styleMessage(color.debug, message));
   },
   info: (message: unknown) => {
     console.log(message);
   },
   warn: (message: unknown) => {
-    console.warn(logWithColor('yellow', message));
+    console.warn(styleMessage(color.warn, message));
   },
   error: (message: unknown) => {
-    console.error(logWithColor('red', message));
+    console.error(styleMessage(color.error, message));
   },
 };
