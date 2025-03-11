@@ -12,5 +12,6 @@ export const start = async ({ testsystem }: { testsystem: string }) => {
 
   await fetcher(url.toString(), {
     headers: { Authorization: config.jenkins.authorization },
+    method: 'POST',
   });
 };

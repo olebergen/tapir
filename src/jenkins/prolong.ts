@@ -19,5 +19,6 @@ export const prolong = async ({
 
   await fetcher(url.toString(), {
     headers: { Authorization: config.jenkins.authorization },
+    method: 'POST',
   });
 };

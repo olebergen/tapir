@@ -21,5 +21,6 @@ export const deployDhr = async ({ testsystem, tag }: { testsystem: string; tag?:
 
   await fetcher(url.toString(), {
     headers: { Authorization: config.jenkins.authorization },
+    method: 'POST',
   });
 };
