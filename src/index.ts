@@ -1,5 +1,5 @@
 import yargs from 'yargs';
-import { config } from './config.ts';
+import { env } from './config.ts';
 import { deployDhr } from './jenkins/deployDhr.ts';
 import { prolong } from './jenkins/prolong.ts';
 import { start } from './jenkins/start.ts';
@@ -11,7 +11,7 @@ import { destroy } from './jenkins/destroy.ts';
     .demandCommand(1, 'You need to specify a command')
     .strict()
     .options({
-      testsystem: { type: 'string', default: config.testsystem, alias: 't' },
+      testsystem: { type: 'string', default: env.TESTSYSTEM_HOST, alias: 't' },
     })
     .command({
       command: 'start',
@@ -41,7 +41,6 @@ import { destroy } from './jenkins/destroy.ts';
       builder: (yargs) =>
         yargs.option('tag', {
           type: 'string',
-          // default: 'latest',
           alias: 'T',
           describe: 'Specify the frontend version via tag',
           example: 'PR_1234',

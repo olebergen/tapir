@@ -1,5 +1,5 @@
 import { fetcher } from '../utils/fetcher.ts';
-import { config } from '../config.ts';
+import { config, zealTestsystemUrl } from '../config.ts';
 import { currentPathPrNumberJSON, isGhAuthenticationError } from '../utils/gh.ts';
 
 export const deployDhr = async ({ testsystem, tag }: { testsystem: string; tag?: string }) => {
@@ -21,7 +21,7 @@ export const deployDhr = async ({ testsystem, tag }: { testsystem: string; tag?:
 
   const searchParams = new URLSearchParams();
 
-  searchParams.append('TESTSYSTEM', testsystem);
+  searchParams.append('TESTSYSTEM', zealTestsystemUrl(testsystem));
   searchParams.append('DHR_FRONTEND_VERSION', frontendVersion);
   // searchParams.append('PLATFORM_BRANCH_OR_PR', 'master');
 
