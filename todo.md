@@ -1,5 +1,3 @@
-- chrome extension die bei npm links github im preview klickbar anzeigt
-
 - typescript lsp import mit ts statt ohne
 
 ---
