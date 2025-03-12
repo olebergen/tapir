@@ -45,14 +45,22 @@ import { createDir, fileExists } from './utils/file.ts';
       command: 'dhr',
       describe: 'Deploy DHR Frontend PR',
       builder: (yargs) =>
-        yargs.option('tag', {
-          type: 'string',
-          alias: 'T',
-          describe: 'Specify the frontend version via tag',
-          example: 'PR_1234',
-        }),
+        yargs
+          .options('tag', {
+            type: 'string',
+            alias: 'T',
+            describe: 'Specify the frontend version via tag',
+            example: 'PR_1234',
+          })
+          .option('select', {
+            type: 'boolean',
+            alias: 's',
+            describe: 'Select the PR to deploy',
+          })
+          .conflicts('tag', 'select'),
       handler: async (argv) => {
         deployDhr({
+          select: argv.select,
           testsystem: argv.testsystem,
           tag: argv.tag,
         });
