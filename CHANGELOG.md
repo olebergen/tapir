@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/olebergen/tapir/compare/v1.0.3...v1.1.0) (2025-03-12)
+
+
+### Features
+
+* add pr selection for dhr frontend deploy job ([73e51ab](https://github.com/olebergen/tapir/commit/73e51abe3821eefe3e4eaea3169f501bd3d69cf5))
+
 ## [1.0.3](https://github.com/olebergen/tapir/compare/v1.0.2...v1.0.3) (2025-03-12)
 
 
