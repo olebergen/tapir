@@ -1,11 +1,17 @@
 import yargs from 'yargs';
-import { env } from './config.ts';
+import { env, path } from './config.ts';
 import { deployDhr } from './jenkins/deployDhr.ts';
 import { prolong } from './jenkins/prolong.ts';
 import { start } from './jenkins/start.ts';
 import { destroy } from './jenkins/destroy.ts';
+import { createDir, fileExists } from './utils/file.ts';
 
 (async () => {
+  const hasTmp = await fileExists(path.tmp);
+  if (!hasTmp) {
+    await createDir(path.tmp);
+  }
+
   await yargs(process.argv.slice(2))
     .usage('Usage: $0 <command> [options]')
     .demandCommand(1, 'You need to specify a command')

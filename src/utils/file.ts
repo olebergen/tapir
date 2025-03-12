@@ -7,3 +7,4 @@ export const fileExists = async (path: string) =>
     .catch(() => false);
 export const writeFile = async (path: string, content: string) => fs.writeFile(path, content);
 export const readFile = async (path: string) => fs.readFile(path, 'utf8');
+export const createDir = async (path: string) => fs.mkdir(path, { recursive: true });

@@ -8,16 +8,20 @@ export const path = {
   root: basePath,
   env: basePath + '/.env',
   tmp: basePath + '/.tmp',
-};
+} as const;
 
 const { parsed } = dotenv.config({ path: path.env });
 
 export const env = {
-  JENKINS_USER: parsed?.JENKINS_USER,
-  JENKINS_TOKEN: parsed?.JENKINS_TOKEN,
-  TESTSYSTEM_HOST: parsed?.TESTSYSTEM_HOST,
-  TESTSYSTEM: `${parsed?.TESTSYSTEM_HOST}`,
-};
+  JENKINS_USER: parsed!.JENKINS_USER,
+  JENKINS_TOKEN: parsed!.JENKINS_TOKEN,
+  TESTSYSTEM_HOST: parsed!.TESTSYSTEM_HOST,
+  TESTSYSTEM: `${parsed!.TESTSYSTEM_HOST}`,
+} as const;
+
+for (const [key, value] of Object.entries(env)) {
+  if (!value) throw new Error(`Missing environment variable: ${key}`);
+}
 
 const credentials = `${env.JENKINS_USER}:${env.JENKINS_TOKEN}`;
 
@@ -32,7 +36,7 @@ export const config = {
       destroy: '/job/PLATFORM_AWS_TESTSYSTEM_DELETE/buildWithParameters',
     },
   },
-};
+} as const;
 
 export const jenkinsJobApi = (job: keyof typeof config.jenkins.jobs) => job + '/api/json';
 export const zealTestsystemUrl = (testsystem = env.TESTSYSTEM_HOST) =>
