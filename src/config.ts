@@ -7,7 +7,7 @@ export const basePath = dirname(fileURLToPath(import.meta.url)).slice(0, -4);
 export const path = {
   root: basePath,
   env: basePath + '/.env',
-  out: basePath + '/out',
+  tmp: basePath + '/.tmp',
 };
 
 const { parsed } = dotenv.config({ path: path.env });

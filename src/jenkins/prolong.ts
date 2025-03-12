@@ -1,6 +1,7 @@
 import { fetcher } from '../utils/fetcher.ts';
 import { config, path, zealTestsystemUrl } from '../config.ts';
-import { writeFile } from '../utils/file.ts';
+import { fileExists, readFile, writeFile } from '../utils/file.ts';
+import { print } from '../utils/log.ts';
 
 export const prolong = async ({
   testsystem,
@@ -9,8 +10,21 @@ export const prolong = async ({
   testsystem: string;
   duration: number;
 }) => {
-  // const prolongUrl = new URL(config.jenkins.url + config.jenkins.jobs.prolong);
-  const prolongUrl = new URL('https://httpbin.org/post');
+  const prolongFile = `${path.tmp}/${testsystem}-prolong.json`;
+  const previousProlong = await fileExists(prolongFile);
+
+  if (previousProlong) {
+    const { ts } = JSON.parse(await readFile(prolongFile));
+    const timestamp = new Date(ts);
+    const today = new Date();
+
+    if (timestamp.toDateString() === today.toDateString()) {
+      print.warn('Already prolonged today');
+      process.exit(1);
+    }
+  }
+
+  const prolongUrl = new URL(config.jenkins.url + config.jenkins.jobs.prolong);
 
   const searchParams = new URLSearchParams();
 
@@ -24,8 +38,5 @@ export const prolong = async ({
     method: 'POST',
   });
 
-  await writeFile(
-    path.out + '/prolong.json',
-    JSON.stringify({ testsystem, duration, ts: Date.now() })
-  );
+  await writeFile(prolongFile, JSON.stringify({ testsystem, duration, ts: Date.now() }));
 };
