@@ -1,3 +1,5 @@
+- error management of gh in dhr frontend job script
+
 - typescript lsp import mit ts statt ohne
 
 ---
