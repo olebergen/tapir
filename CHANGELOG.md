@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/olebergen/tapir/compare/v1.0.0...v1.0.1) (2025-03-12)
+
+
+### Bug Fixes
+
+* release please package json version ([e64a636](https://github.com/olebergen/tapir/commit/e64a636ce6e0172af93404a9cbded0bad662fbb0))
+
 ## 1.0.0 (2025-03-12)
 
 
