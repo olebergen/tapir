@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/olebergen/tapir/compare/v1.1.2...v1.1.3) (2025-03-13)
+
+
+### Bug Fixes
+
+* remove old variable ([c27df7d](https://github.com/olebergen/tapir/commit/c27df7da17d13af736ea487d2b232ad0740f216f))
+
 ## [1.1.2](https://github.com/olebergen/tapir/compare/v1.1.1...v1.1.2) (2025-03-13)
 
 
