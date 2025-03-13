@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/olebergen/tapir/compare/v1.1.0...v1.1.1) (2025-03-13)
+
+
+### Bug Fixes
+
+* testmode ([e75c758](https://github.com/olebergen/tapir/commit/e75c7581fdf01223b6e6fa175bf7fc4a629abcb5))
+
 ## [1.1.0](https://github.com/olebergen/tapir/compare/v1.0.3...v1.1.0) (2025-03-12)
 
 
