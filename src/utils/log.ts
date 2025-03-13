@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { color } from './color.ts';
 import { styleMessage } from './string.ts';
 

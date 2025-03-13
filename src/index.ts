@@ -35,8 +35,8 @@ export const init = async () =>
     .command({
       command: 'prolong',
       describe: 'Prolong a testsystem',
-      builder: (yargs) =>
-        yargs.option('duration', {
+      builder: (y) =>
+        y.option('duration', {
           type: 'number',
           default: 4,
           alias: 'd',
@@ -48,8 +48,8 @@ export const init = async () =>
     .command({
       command: 'dhr',
       describe: 'Deploy DHR Frontend PR',
-      builder: (yargs) =>
-        yargs
+      builder: (y) =>
+        y
           .options('tag', {
             type: 'string',
             alias: 'T',

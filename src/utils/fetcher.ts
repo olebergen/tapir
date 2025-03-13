@@ -14,19 +14,20 @@ export const fetcher = async <T = unknown>({
   init?: RequestInit;
   testmodeFlag?: boolean;
 }) => {
+  let input = url;
   if (isTestmode(testmodeFlag)) {
     const searchParams = new URLSearchParams(url.search);
     let testUrl = 'https://httbin.org/';
     testUrl += init?.method === 'POST' ? 'post' : 'delay/1';
     if (searchParams) testUrl += `?${searchParams}`;
-    url = new URL(testUrl);
+    input = new URL(testUrl);
   }
 
   const startTime = Date.now();
   const methodAndUrl = `${init?.method ? init.method : 'GET'} ${url}`;
   const spinner = ora(methodAndUrl).start();
 
-  const response = await fetch(url, init);
+  const response = await fetch(input, init);
   let { status }: { status: number | string } = response;
 
   const responseTime = Date.now() - startTime;
@@ -49,7 +50,6 @@ export const fetcher = async <T = unknown>({
   const contentType = response.headers.get('content-type');
   if (contentType && contentType.indexOf('application/json') !== -1) {
     return response.json() as Promise<T>;
-  } else {
-    return response.text() as Promise<T>;
   }
+  return response.text() as Promise<T>;
 };
