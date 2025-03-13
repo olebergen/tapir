@@ -6,28 +6,31 @@ import { start } from './jenkins/start.ts';
 import { destroy } from './jenkins/destroy.ts';
 import { createDir, fileExists } from './utils/file.ts';
 
-(async () => {
-  const hasTmp = await fileExists(path.tmp);
-  if (!hasTmp) {
-    await createDir(path.tmp);
-  }
-
-  await yargs(process.argv.slice(2))
+export const init = async () =>
+  yargs(process.argv.slice(2))
     .usage('Usage: $0 <command> [options]')
     .demandCommand(1, 'You need to specify a command')
     .strict()
     .options({
-      testsystem: { type: 'string', default: env.TESTSYSTEM_HOST, alias: 't' },
+      test: { type: 'boolean', default: false, describe: 'Use test mode' },
+    })
+    .options({
+      testsystem: {
+        type: 'string',
+        default: env.TESTSYSTEM_HOST,
+        alias: 't',
+        describe: 'Testsystem host',
+      } as const,
     })
     .command({
       command: 'start',
       describe: 'Start a testsystem',
-      handler: async (argv) => start({ testsystem: argv.testsystem }),
+      handler: async (argv) => start({ testsystem: argv.testsystem, test: argv.test }),
     })
     .command({
       command: 'destroy',
       describe: 'Delete a testsystem',
-      handler: async (argv) => destroy({ testsystem: argv.testsystem }),
+      handler: async (argv) => destroy({ testsystem: argv.testsystem, test: argv.test }),
     })
     .command({
       command: 'prolong',
@@ -37,9 +40,10 @@ import { createDir, fileExists } from './utils/file.ts';
           type: 'number',
           default: 4,
           alias: 'd',
-          describe: 'Specify the duration in hours',
+          describe: 'Duration to prolong in hours',
         }),
-      handler: async (argv) => prolong({ testsystem: argv.testsystem, duration: argv.duration }),
+      handler: async (argv) =>
+        prolong({ testsystem: argv.testsystem, duration: argv.duration, test: argv.test }),
     })
     .command({
       command: 'dhr',
@@ -49,7 +53,7 @@ import { createDir, fileExists } from './utils/file.ts';
           .options('tag', {
             type: 'string',
             alias: 'T',
-            describe: 'Specify the frontend version via tag',
+            describe: 'DHR frontend version tag, `PR_` followed by a PR number',
             example: 'PR_1234',
           })
           .option('select', {
@@ -63,9 +67,18 @@ import { createDir, fileExists } from './utils/file.ts';
           select: argv.select,
           testsystem: argv.testsystem,
           tag: argv.tag,
+          test: argv.test,
         });
       },
     })
     .help()
     .parse();
+
+(async () => {
+  const hasTmp = await fileExists(path.tmp);
+  if (!hasTmp) {
+    await createDir(path.tmp);
+  }
+
+  await init();
 })();

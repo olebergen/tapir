@@ -3,8 +3,25 @@ import { TapError } from './error.ts';
 import { print } from './log.ts';
 import { styleMessage } from './string.ts';
 import { color } from './color.ts';
+import { isTestmode } from '../config.ts';
 
-export const fetcher = async <T = unknown>(url: string, init?: RequestInit) => {
+export const fetcher = async <T = unknown>({
+  url,
+  init,
+  testmodeFlag,
+}: {
+  url: URL;
+  init?: RequestInit;
+  testmodeFlag?: boolean;
+}) => {
+  if (isTestmode(testmodeFlag)) {
+    const searchParams = new URLSearchParams(url.search);
+    let testUrl = 'https://httbin.org/';
+    testUrl += init?.method === 'POST' ? 'post' : 'delay/1';
+    if (searchParams) testUrl += `?${searchParams}`;
+    url = new URL(testUrl);
+  }
+
   const startTime = Date.now();
   const methodAndUrl = `${init?.method ? init.method : 'GET'} ${url}`;
   const spinner = ora(methodAndUrl).start();

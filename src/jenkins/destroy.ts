@@ -1,7 +1,7 @@
 import { fetcher } from '../utils/fetcher.ts';
 import { config, zealTestsystemUrl } from '../config.ts';
 
-export const destroy = async ({ testsystem }: { testsystem: string }) => {
+export const destroy = async ({ testsystem, test }: { testsystem: string; test?: boolean }) => {
   const url = new URL(config.jenkins.url + config.jenkins.jobs.destroy);
 
   const searchParams = new URLSearchParams();
@@ -10,8 +10,12 @@ export const destroy = async ({ testsystem }: { testsystem: string }) => {
 
   url.search = searchParams.toString();
 
-  await fetcher(url.toString(), {
-    headers: { Authorization: config.jenkins.authorization },
-    method: 'POST',
+  await fetcher({
+    url,
+    init: {
+      headers: { Authorization: config.jenkins.authorization },
+      method: 'POST',
+    },
+    testmodeFlag: test,
   });
 };

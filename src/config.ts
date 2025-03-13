@@ -17,11 +17,15 @@ export const env = {
   JENKINS_TOKEN: parsed!.JENKINS_TOKEN,
   TESTSYSTEM_HOST: parsed!.TESTSYSTEM_HOST,
   TESTSYSTEM: `${parsed!.TESTSYSTEM_HOST}`,
+  TEST: parsed!.TEST,
 } as const;
 
 for (const [key, value] of Object.entries(env)) {
+  if (key === 'TEST') continue;
   if (!value) throw new Error(`Missing environment variable: ${key}`);
 }
+
+export const isTestmode = (flag?: boolean) => env.TEST === '1' || env.TEST === 'true' || flag;
 
 const credentials = `${env.JENKINS_USER}:${env.JENKINS_TOKEN}`;
 

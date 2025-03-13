@@ -1,4 +1,8 @@
-- debug flag that routes all fetches in httpbin
+- fix error handling log
+
+- fix gh auth error message
+
+- fix dhr no pr found
 
 - error management of gh in dhr frontend job script
 

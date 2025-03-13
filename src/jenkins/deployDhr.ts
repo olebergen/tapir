@@ -7,10 +7,12 @@ export const deployDhr = async ({
   testsystem,
   tag,
   select,
+  test,
 }: {
   testsystem: string;
   tag?: string;
   select?: boolean;
+  test?: boolean;
 }) => {
   let frontendVersion = tag;
 
@@ -65,8 +67,12 @@ export const deployDhr = async ({
 
   url.search = searchParams.toString();
 
-  await fetcher(url.toString(), {
-    headers: { Authorization: config.jenkins.authorization },
-    method: 'POST',
+  await fetcher({
+    url,
+    init: {
+      headers: { Authorization: config.jenkins.authorization },
+      method: 'POST',
+    },
+    testmodeFlag: test,
   });
 };

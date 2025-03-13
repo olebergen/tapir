@@ -6,9 +6,11 @@ import { print } from '../utils/log.ts';
 export const prolong = async ({
   testsystem,
   duration,
+  test,
 }: {
   testsystem: string;
   duration: number;
+  test?: boolean;
 }) => {
   const prolongFile = `${path.tmp}/${testsystem}-prolong.json`;
   const previousProlong = await fileExists(prolongFile);
@@ -24,18 +26,22 @@ export const prolong = async ({
     }
   }
 
-  const prolongUrl = new URL(config.jenkins.url + config.jenkins.jobs.prolong);
+  const url = new URL(config.jenkins.url + config.jenkins.jobs.prolong);
 
   const searchParams = new URLSearchParams();
 
   searchParams.append('TESTSYSTEM', zealTestsystemUrl(testsystem));
   searchParams.append('NUMBER_OF_HOURS_TO_PROLONG', duration.toString());
 
-  prolongUrl.search = searchParams.toString();
+  url.search = searchParams.toString();
 
-  await fetcher(prolongUrl.toString(), {
-    headers: { Authorization: config.jenkins.authorization },
-    method: 'POST',
+  await fetcher({
+    url,
+    init: {
+      headers: { Authorization: config.jenkins.authorization },
+      method: 'POST',
+    },
+    testmodeFlag: test,
   });
 
   await writeFile(prolongFile, JSON.stringify({ testsystem, duration, ts: Date.now() }));
