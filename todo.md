@@ -1,13 +1,5 @@
 - eslint with no unused variables, no warnings either, my cfg
 
----
-
-- fix error handling log
-
-- fix dhr no pr found
-
-- error management of gh in dhr frontend job script
-
 - typescript lsp import mit ts statt ohne
 
 ---
