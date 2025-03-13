@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/olebergen/tapir/compare/v1.1.4...v1.1.5) (2025-03-13)
+
+
+### Bug Fixes
+
+* eslint ([63e5e2c](https://github.com/olebergen/tapir/commit/63e5e2c2fea96513c2da6b87cb417a444f645638))
+
 ## [1.1.4](https://github.com/olebergen/tapir/compare/v1.1.3...v1.1.4) (2025-03-13)
 
 
