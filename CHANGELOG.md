@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/olebergen/tapir/compare/v1.1.3...v1.1.4) (2025-03-13)
+
+
+### Bug Fixes
+
+* remove git execute ([58c4e7e](https://github.com/olebergen/tapir/commit/58c4e7e5a2626e22eb5843b6bc30bb8f012db2ef))
+
 ## [1.1.3](https://github.com/olebergen/tapir/compare/v1.1.2...v1.1.3) (2025-03-13)
 
 
