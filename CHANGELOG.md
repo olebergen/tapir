@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/olebergen/tapir/compare/v1.1.1...v1.1.2) (2025-03-13)
+
+
+### Bug Fixes
+
+* error handling ([b6fa53e](https://github.com/olebergen/tapir/commit/b6fa53e8654f89b6ef04028200cf1bc3cad37b2b))
+
 ## [1.1.1](https://github.com/olebergen/tapir/compare/v1.1.0...v1.1.1) (2025-03-13)
 
 
