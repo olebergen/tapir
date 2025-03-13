@@ -1,5 +1,3 @@
-- eslint with no unused variables, no warnings either, my cfg
-
 - typescript lsp import mit ts statt ohne
 
 ---
