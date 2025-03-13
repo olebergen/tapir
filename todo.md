@@ -1,6 +1,8 @@
-- fix error handling log
-
 - fix gh auth error message
+
+---
+
+- fix error handling log
 
 - fix dhr no pr found
 

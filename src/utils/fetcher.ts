@@ -1,5 +1,5 @@
 import ora from 'ora';
-import { TapError } from './error.ts';
+import { exitWithError, TapError } from './error.ts';
 import { print } from './log.ts';
 import { styleMessage } from './string.ts';
 import { color } from './color.ts';
@@ -41,7 +41,7 @@ export const fetcher = async <T = unknown>({
 
   if (!response.ok) {
     print.info(responseLog);
-    return new TapError('Failed to fetch', { status: response.status, url });
+    exitWithError('Failed to fetch');
   }
 
   print.info(responseLog);

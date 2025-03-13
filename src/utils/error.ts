@@ -1,15 +1,6 @@
-export type TapErrorOptions = {
-  url?: string;
-  status?: number;
+import { print } from './log.ts';
+
+export const exitWithError = (message: string) => {
+  print.error(message);
+  process.exit(1);
 };
-
-export class TapError extends Error {
-  url: string | null;
-  status: number | null;
-
-  constructor(message: string, options?: TapErrorOptions) {
-    super(message);
-    this.url = options?.url ?? null;
-    this.status = options?.status ?? null;
-  }
-}

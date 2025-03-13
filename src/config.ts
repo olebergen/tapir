@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { exitWithError } from './utils/error.ts';
 
 export const basePath = dirname(fileURLToPath(import.meta.url)).slice(0, -4);
 
@@ -22,7 +23,7 @@ export const env = {
 
 for (const [key, value] of Object.entries(env)) {
   if (key === 'TEST') continue;
-  if (!value) throw new Error(`Missing environment variable: ${key}`);
+  if (!value) exitWithError(`Missing environment variable: ${key}`);
 }
 
 export const isTestmode = (flag?: boolean) => env.TEST === '1' || env.TEST === 'true' || flag;

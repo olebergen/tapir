@@ -1,7 +1,8 @@
 import prompts from 'prompts';
 import { fetcher } from '../utils/fetcher.ts';
 import { config, zealTestsystemUrl } from '../config.ts';
-import { allPrs, currentPathPrNumberJSON, isGhAuthenticationError } from '../utils/gh.ts';
+import { allPrs, canViewPrs, currentPathPrNumberJSON } from '../utils/gh.ts';
+import { exitWithError } from '../utils/error.ts';
 
 export const deployDhr = async ({
   testsystem,
@@ -14,15 +15,15 @@ export const deployDhr = async ({
   select?: boolean;
   test?: boolean;
 }) => {
+  await canViewPrs();
+
   let frontendVersion = tag;
 
   if (select) {
     const prs = await allPrs();
-
-    const authError = isGhAuthenticationError(prs.stderr);
-    if (authError) throw new Error('gh authentication error, try:  gh auth login');
-    const noPrError = prs.stderr.includes('no pull requests found');
-    if (noPrError) throw new Error('No pull request found');
+    if (prs.code !== 0) {
+      exitWithError(prs.stderr);
+    }
 
     const choices = JSON.parse(prs.stdout).map(
       ({ number, title }: { number: number; title: string }) => ({
@@ -38,22 +39,24 @@ export const deployDhr = async ({
       choices,
     });
 
-    if (!pr) throw new Error('No PR selected');
+    if (!pr) {
+      process.exit(1);
+    }
 
     frontendVersion = pr;
   }
 
   if (!frontendVersion) {
     const currentPr = await currentPathPrNumberJSON();
-
-    const authError = isGhAuthenticationError(currentPr.stderr);
-    if (authError) throw new Error('gh authentication error, try:  gh auth login');
-    const noPrError = currentPr.stderr.includes('no pull requests found');
-    if (noPrError) throw new Error('No pull request found');
+    if (currentPr.code !== 0) {
+      exitWithError(currentPr.stderr);
+    }
 
     const prNumber = JSON.parse(currentPr.stdout).number;
 
-    if (typeof prNumber !== 'number') throw new Error('PR number is not a number');
+    if (typeof prNumber !== 'number') {
+      exitWithError('PR number is not a number');
+    }
 
     frontendVersion = 'PR_' + prNumber;
   }
