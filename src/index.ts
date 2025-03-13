@@ -76,9 +76,7 @@ export const init = async () =>
 
 (async () => {
   const hasTmp = await fileExists(path.tmp);
-  if (!hasTmp) {
-    await createDir(path.tmp);
-  }
+  if (!hasTmp) await createDir(path.tmp);
 
   await init();
 })();
