@@ -1,5 +1,5 @@
 import ora from 'ora';
-import { exitWithError, TapError } from './error.ts';
+import { exitWithError } from './error.ts';
 import { print } from './log.ts';
 import { styleMessage } from './string.ts';
 import { color } from './color.ts';

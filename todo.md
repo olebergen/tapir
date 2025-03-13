@@ -1,4 +1,4 @@
-- fix gh auth error message
+- eslint with no unused variables, no warnings either, my cfg
 
 ---
 
