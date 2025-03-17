@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/olebergen/tapir/compare/v1.1.5...v1.2.0) (2025-03-17)
+
+
+### Features
+
+* add ssh logs script ([b167e9f](https://github.com/olebergen/tapir/commit/b167e9f671c99720c0b6a13362f014cc631ba38a))
+
 ## [1.1.5](https://github.com/olebergen/tapir/compare/v1.1.4...v1.1.5) (2025-03-13)
 
 
