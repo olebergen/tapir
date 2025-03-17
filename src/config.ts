@@ -3,7 +3,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { exitWithError } from './utils/error.ts';
 
-export const basePath = dirname(fileURLToPath(import.meta.url)).slice(0, -4);
+export const basePath = dirname(fileURLToPath(import.meta.url)).slice(0, -4); // slice away /bin
 
 export const path = {
   root: basePath,

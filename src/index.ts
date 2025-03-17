@@ -61,13 +61,20 @@ export const init = async () =>
             alias: 's',
             describe: 'Select the PR to deploy',
           })
-          .conflicts('tag', 'select'),
+          .conflicts('tag', 'select')
+          .option('platformBranchOrPr', {
+            type: 'string',
+            alias: 'p',
+            describe: 'Platform branch or PR to deploy',
+            default: 'master',
+          }),
       handler: async (argv) => {
         deployDhr({
           select: argv.select,
           testsystem: argv.testsystem,
           tag: argv.tag,
           test: argv.test,
+          platformBranchOrPr: argv.platformBranchOrPr,
         });
       },
     })
