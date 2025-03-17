@@ -2,6 +2,7 @@ import { Fetcher } from '../utils/fetcher.ts';
 import { config, path, zealTestsystemUrl } from '../config.ts';
 import { fileExists, readFile, writeFile } from '../utils/file.ts';
 import { print } from '../utils/log.ts';
+import { viewLatestBuild } from '../utils/jenkins.ts';
 
 export const prolong = async ({
   testsystem,
@@ -47,4 +48,6 @@ export const prolong = async ({
   await fetch.post(url);
 
   await writeFile(prolongFile, JSON.stringify({ testsystem, duration, ts: Date.now() }));
+
+  await viewLatestBuild({ fetch, job: config.jenkins.url + config.jenkins.jobs.prolong });
 };

@@ -1,5 +1,6 @@
 import { Fetcher } from '../utils/fetcher.ts';
 import { config, zealTestsystemUrl } from '../config.ts';
+import { viewLatestBuild } from '../utils/jenkins.ts';
 
 export const start = async ({ testsystem, test }: { testsystem: string; test?: boolean }) => {
   const fetch = new Fetcher({
@@ -20,4 +21,6 @@ export const start = async ({ testsystem, test }: { testsystem: string; test?: b
   url.search = searchParams.toString();
 
   await fetch.post(url);
+
+  await viewLatestBuild({ fetch, job: config.jenkins.url + config.jenkins.jobs.start });
 };

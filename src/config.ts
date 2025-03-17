@@ -43,7 +43,8 @@ export const config = {
       destroy: '/job/PLATFORM_AWS_TESTSYSTEM_DELETE',
     },
     buildWithParameters: '/buildWithParameters',
-    builds: '/api/json?tree=allBuilds',
+    builds: '/api/json?tree=builds[url,result,timestamp]',
+    // builds: '/api/json?tree=builds[number,url,result,timestamp,duration]',
   },
 } as const;
 

@@ -3,6 +3,7 @@ import { Fetcher } from '../utils/fetcher.ts';
 import { config, zealTestsystemUrl } from '../config.ts';
 import { allPrs, canViewPrs, currentPathPrNumberJSON } from '../utils/gh.ts';
 import { exitWithError } from '../utils/error.ts';
+import { viewLatestBuild } from '../utils/jenkins.ts';
 
 export const deployDhr = async ({
   testsystem,
@@ -83,4 +84,6 @@ export const deployDhr = async ({
   url.search = searchParams.toString();
 
   await fetch.post(url);
+
+  await viewLatestBuild({ fetch, job: config.jenkins.url + config.jenkins.jobs.deployDhrFrontend });
 };
