@@ -1,3 +1,4 @@
+import os from 'os';
 import dotenv from 'dotenv';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -14,10 +15,11 @@ export const path = {
 const { parsed } = dotenv.config({ path: path.env });
 
 export const env = {
+  USER: os.userInfo().username,
   JENKINS_USER: parsed!.JENKINS_USER,
   JENKINS_TOKEN: parsed!.JENKINS_TOKEN,
   TESTSYSTEM_HOST: parsed!.TESTSYSTEM_HOST,
-  TESTSYSTEM: `${parsed!.TESTSYSTEM_HOST}`,
+  SSH_KEY: parsed!.SSH_KEY,
   TEST: parsed!.TEST,
 } as const;
 

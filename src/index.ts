@@ -5,6 +5,7 @@ import { prolong } from './jenkins/prolong.ts';
 import { start } from './jenkins/start.ts';
 import { destroy } from './jenkins/destroy.ts';
 import { createDir, fileExists } from './utils/file.ts';
+import { serviceLogs } from './testsystem/serviceLogs.ts';
 
 export const init = async () =>
   yargs(process.argv.slice(2))
@@ -75,6 +76,43 @@ export const init = async () =>
           tag: argv.tag,
           test: argv.test,
           platformBranchOrPr: argv.platformBranchOrPr,
+        });
+      },
+    })
+    .command({
+      command: 'logs',
+      describe: 'Get testsystem service logs',
+      builder: (y) =>
+        y
+          .options('service', {
+            type: 'string',
+            alias: 's',
+            describe: 'Kubernetes Service name',
+            default: 'dhr-frontend',
+          })
+          .option('namespace', {
+            type: 'string',
+            alias: 'n',
+            describe: 'Kubernetes Namespace',
+            default: 'dhr',
+          })
+          .option('parse', {
+            type: 'boolean',
+            alias: 'p',
+            describe: 'Parse logs as json',
+          })
+          .option('timestamp', {
+            type: 'boolean',
+            alias: 'z',
+            describe: 'Add timestamp to logs',
+          }),
+      handler: async (argv) => {
+        serviceLogs({
+          testsystem: argv.testsystem,
+          service: argv.service,
+          namespace: argv.namespace,
+          parse: argv.parse,
+          timestamp: argv.timestamp,
         });
       },
     })

@@ -10,8 +10,4 @@
 
   - /api/json?tree=allBuilds
 
-- befehl um logs per ssh mit kubectl logs zu streamen, default dhr frontend ansonsten service name (kann man auch aussuchen)
-
-  - bei dhr frontend dann json parsen
-
-- dhr script tag latest wenn branch gerade main
+- logs script timestamp aus iso zeit? oder anders ms rein
