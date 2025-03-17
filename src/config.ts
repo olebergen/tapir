@@ -37,11 +37,13 @@ export const config = {
     url: 'https://platform-jenkins.test.h.zeal.zone',
     authorization: 'Basic ' + Buffer.from(credentials).toString('base64'),
     jobs: {
-      deployDhrFrontend: '/job/DEPLOY_TEST_AWS__DHR_FRONTEND/buildWithParameters',
-      prolong: '/job/PLATFORM_AWS_PROLONG_TEST_SYSTEM/buildWithParameters',
-      start: '/job/PLATFORM_AWS_TESTSYSTEM_CREATE_AND_DEPLOY/buildWithParameters',
-      destroy: '/job/PLATFORM_AWS_TESTSYSTEM_DELETE/buildWithParameters',
+      deployDhrFrontend: '/job/DEPLOY_TEST_AWS__DHR_FRONTEND',
+      prolong: '/job/PLATFORM_AWS_PROLONG_TEST_SYSTEM',
+      start: '/job/PLATFORM_AWS_TESTSYSTEM_CREATE_AND_DEPLOY',
+      destroy: '/job/PLATFORM_AWS_TESTSYSTEM_DELETE',
     },
+    buildWithParameters: '/buildWithParameters',
+    builds: '/api/json?tree=allBuilds',
   },
 } as const;
 

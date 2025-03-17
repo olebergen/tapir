@@ -9,7 +9,9 @@ export const destroy = async ({ testsystem, test }: { testsystem: string; test?:
     testmode: test,
   });
 
-  const url = new URL(config.jenkins.url + config.jenkins.jobs.destroy);
+  const url = new URL(
+    config.jenkins.url + config.jenkins.jobs.destroy + config.jenkins.buildWithParameters
+  );
 
   const searchParams = new URLSearchParams();
 

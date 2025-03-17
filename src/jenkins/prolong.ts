@@ -33,7 +33,9 @@ export const prolong = async ({
     testmode: test,
   });
 
-  const url = new URL(config.jenkins.url + config.jenkins.jobs.prolong);
+  const url = new URL(
+    config.jenkins.url + config.jenkins.jobs.prolong + config.jenkins.buildWithParameters
+  );
 
   const searchParams = new URLSearchParams();
 

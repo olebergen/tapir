@@ -9,7 +9,9 @@ export const start = async ({ testsystem, test }: { testsystem: string; test?: b
     testmode: test,
   });
 
-  const url = new URL(config.jenkins.url + config.jenkins.jobs.deployDhrFrontend);
+  const url = new URL(
+    config.jenkins.url + config.jenkins.jobs.deployDhrFrontend + config.jenkins.buildWithParameters
+  );
 
   const searchParams = new URLSearchParams();
 
