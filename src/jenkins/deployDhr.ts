@@ -1,5 +1,5 @@
 import prompts from 'prompts';
-import { fetcher } from '../utils/fetcher.ts';
+import { Fetcher } from '../utils/fetcher.ts';
 import { config, zealTestsystemUrl } from '../config.ts';
 import { allPrs, canViewPrs, currentPathPrNumberJSON } from '../utils/gh.ts';
 import { exitWithError } from '../utils/error.ts';
@@ -12,12 +12,19 @@ export const deployDhr = async ({
   platformBranchOrPr,
 }: {
   testsystem: string;
+  test: boolean;
+  platformBranchOrPr: string;
   tag?: string;
   select?: boolean;
-  test?: boolean;
-  platformBranchOrPr?: string;
 }) => {
   await canViewPrs();
+
+  const fetch = new Fetcher({
+    init: {
+      headers: { Authorization: config.jenkins.authorization },
+    },
+    testmode: test,
+  });
 
   let frontendVersion = tag;
 
@@ -73,12 +80,5 @@ export const deployDhr = async ({
 
   url.search = searchParams.toString();
 
-  await fetcher({
-    url,
-    init: {
-      headers: { Authorization: config.jenkins.authorization },
-      method: 'POST',
-    },
-    testmodeFlag: test,
-  });
+  await fetch.post(url);
 };

@@ -1,4 +1,4 @@
-import { fetcher } from '../utils/fetcher.ts';
+import { Fetcher } from '../utils/fetcher.ts';
 import { config, path, zealTestsystemUrl } from '../config.ts';
 import { fileExists, readFile, writeFile } from '../utils/file.ts';
 import { print } from '../utils/log.ts';
@@ -26,6 +26,13 @@ export const prolong = async ({
     }
   }
 
+  const fetch = new Fetcher({
+    init: {
+      headers: { Authorization: config.jenkins.authorization },
+    },
+    testmode: test,
+  });
+
   const url = new URL(config.jenkins.url + config.jenkins.jobs.prolong);
 
   const searchParams = new URLSearchParams();
@@ -35,14 +42,7 @@ export const prolong = async ({
 
   url.search = searchParams.toString();
 
-  await fetcher({
-    url,
-    init: {
-      headers: { Authorization: config.jenkins.authorization },
-      method: 'POST',
-    },
-    testmodeFlag: test,
-  });
+  await fetch.post(url);
 
   await writeFile(prolongFile, JSON.stringify({ testsystem, duration, ts: Date.now() }));
 };
