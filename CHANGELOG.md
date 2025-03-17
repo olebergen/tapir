@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/olebergen/tapir/compare/v1.2.0...v1.2.1) (2025-03-17)
+
+
+### Bug Fixes
+
+* add most recent build in logs ([2f22777](https://github.com/olebergen/tapir/commit/2f2277737952e738b799feb786a5ca1bb07d1a78))
+
 ## [1.2.0](https://github.com/olebergen/tapir/compare/v1.1.5...v1.2.0) (2025-03-17)
 
 
