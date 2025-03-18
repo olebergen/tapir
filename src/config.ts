@@ -20,11 +20,14 @@ export const env = {
   JENKINS_TOKEN: parsed!.JENKINS_TOKEN,
   TESTSYSTEM_HOST: parsed!.TESTSYSTEM_HOST,
   SSH_KEY: parsed!.SSH_KEY,
-  TEST: parsed!.TEST,
+  SSH_PASSPHRASE: parsed?.SSH_PASSPHRASE,
+  TEST: parsed?.TEST,
 } as const;
 
+const optionalEnv = ['TEST', 'SSH_PASSPHRASE'];
+
 for (const [key, value] of Object.entries(env)) {
-  if (key === 'TEST') continue;
+  if (optionalEnv.includes(key)) continue;
   if (!value) exitWithError(`Missing environment variable: ${key}`);
 }
 

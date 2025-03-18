@@ -39,5 +39,6 @@ export const streamSSHCommand = async (
       port: 22,
       username: env.USER,
       privateKey: readFileSync(env.SSH_KEY),
+      passphrase: env.SSH_PASSPHRASE,
     });
 };
