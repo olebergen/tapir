@@ -11,7 +11,7 @@ export const start = async ({ testsystem, test }: { testsystem: string; test?: b
   });
 
   const url = new URL(
-    config.jenkins.url + config.jenkins.jobs.deployDhrFrontend + config.jenkins.buildWithParameters
+    config.jenkins.url + config.jenkins.jobs.start + config.jenkins.buildWithParameters
   );
 
   const searchParams = new URLSearchParams();
