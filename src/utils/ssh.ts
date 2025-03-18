@@ -1,7 +1,6 @@
 import { Client } from 'ssh2';
 import { jsonLog, print } from './log.ts';
 import { env, zealTestsystemUrl } from '../config.ts';
-import { readFileSync } from 'fs';
 
 export const streamSSHCommand = async (
   command: string,
@@ -38,7 +37,6 @@ export const streamSSHCommand = async (
       host: zealTestsystemUrl(testsystem || env.TESTSYSTEM_HOST),
       port: 22,
       username: env.USER,
-      privateKey: readFileSync(env.SSH_KEY),
-      passphrase: env.SSH_PASSPHRASE,
+      agent: env.SSH_AUTH_SOCK,
     });
 };

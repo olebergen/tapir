@@ -16,15 +16,14 @@ const { parsed } = dotenv.config({ path: path.env });
 
 export const env = {
   USER: os.userInfo().username,
-  JENKINS_USER: parsed!.JENKINS_USER,
-  JENKINS_TOKEN: parsed!.JENKINS_TOKEN,
-  TESTSYSTEM_HOST: parsed!.TESTSYSTEM_HOST,
-  SSH_KEY: parsed!.SSH_KEY,
-  SSH_PASSPHRASE: parsed?.SSH_PASSPHRASE,
-  TEST: parsed?.TEST,
+  JENKINS_USER: parsed!.JENKINS_USER || process.env.JENKINS_USER,
+  JENKINS_TOKEN: parsed!.JENKINS_TOKEN || process.env.JENKINS_TOKEN,
+  TESTSYSTEM_HOST: parsed!.TESTSYSTEM_HOST || process.env.TESTSYSTEM_HOST,
+  SSH_AUTH_SOCK: parsed!.SSH_AUTH_SOCK || process.env.SSH_AUTH_SOCK,
+  TEST: parsed?.TEST || process.env.TEST,
 } as const;
 
-const optionalEnv = ['TEST', 'SSH_PASSPHRASE'];
+const optionalEnv = ['TEST'];
 
 for (const [key, value] of Object.entries(env)) {
   if (optionalEnv.includes(key)) continue;
