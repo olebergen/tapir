@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/olebergen/tapir/compare/v1.2.2...v1.2.3) (2025-03-18)
+
+
+### Bug Fixes
+
+* add ssh key passphrase ([c273171](https://github.com/olebergen/tapir/commit/c273171ab2728de532ca1ba127ed6049c8f62f5b))
+
 ## [1.2.2](https://github.com/olebergen/tapir/compare/v1.2.1...v1.2.2) (2025-03-18)
 
 
