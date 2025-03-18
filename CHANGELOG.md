@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4](https://github.com/olebergen/tapir/compare/v1.2.3...v1.2.4) (2025-03-18)
+
+
+### Bug Fixes
+
+* ssh auth sock ([f43e36e](https://github.com/olebergen/tapir/commit/f43e36e9beb205055526b6defa08074531395e13))
+
 ## [1.2.3](https://github.com/olebergen/tapir/compare/v1.2.2...v1.2.3) (2025-03-18)
 
 
