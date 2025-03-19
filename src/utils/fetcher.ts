@@ -1,8 +1,7 @@
 import ora from 'ora';
 import { exitWithError } from './error.ts';
 import { print } from './log.ts';
-import { styleMessage } from './string.ts';
-import { color } from './color.ts';
+import { color, styleMessage } from './color.ts';
 import { isTestmode } from '../config.ts';
 
 export class Fetcher {

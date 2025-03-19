@@ -3,6 +3,14 @@ import { trimTrailingNewline } from './string.ts';
 
 export type ExecuteResult = { stdout: string; stderr: string; code: number | null };
 
+export type Output = { stdout: Buffer[]; stderr: Buffer[] };
+
+export const returnOutput = (buffers: Output, code: number | null) => ({
+  stdout: trimTrailingNewline(Buffer.concat(buffers.stdout).toString()),
+  stderr: trimTrailingNewline(Buffer.concat(buffers.stderr).toString()),
+  code,
+});
+
 export const execute = (
   command: string,
   args: readonly string[],
@@ -11,7 +19,7 @@ export const execute = (
   return new Promise((resolve, reject) => {
     const { mute, ...spawnOptions } = options ?? {};
     const child = spawn(command, args, spawnOptions);
-    const buffers: { stdout: Buffer[]; stderr: Buffer[] } = { stdout: [], stderr: [] };
+    const buffers: Output = { stdout: [], stderr: [] };
 
     if (!mute) {
       child.stdout.pipe(process.stdout);
@@ -24,11 +32,7 @@ export const execute = (
     child.on('error', (err) => reject(err));
 
     child.on('close', (code) => {
-      resolve({
-        stdout: trimTrailingNewline(Buffer.concat(buffers.stdout).toString()),
-        stderr: trimTrailingNewline(Buffer.concat(buffers.stderr).toString()),
-        code,
-      });
+      resolve(returnOutput(buffers, code));
     });
   });
 };

@@ -6,6 +6,7 @@ import { start } from './jenkins/start.ts';
 import { destroy } from './jenkins/destroy.ts';
 import { createDir, fileExists } from './utils/file.ts';
 import { serviceLogs } from './testsystem/serviceLogs.ts';
+import { logLevels } from './utils/log.ts';
 
 export const init = async () =>
   yargs(process.argv.slice(2))
@@ -105,6 +106,17 @@ export const init = async () =>
             type: 'boolean',
             alias: 'z',
             describe: 'Add timestamp to logs',
+          })
+          .options('filter', {
+            type: 'string',
+            alias: 'f',
+            choices: logLevels,
+            describe: `Filter logs by level`,
+          })
+          .options('list', {
+            type: 'boolean',
+            alias: 'l',
+            describe: 'List available services',
           }),
       handler: async (argv) => {
         serviceLogs({
@@ -113,6 +125,8 @@ export const init = async () =>
           namespace: argv.namespace,
           parse: argv.parse,
           timestamp: argv.timestamp,
+          list: argv.list,
+          filter: argv.filter,
         });
       },
     })
