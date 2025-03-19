@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/olebergen/tapir/compare/v1.2.4...v1.3.0) (2025-03-19)
+
+
+### Features
+
+* add service logs list and filter ([c0af358](https://github.com/olebergen/tapir/commit/c0af35803abb179a04fa4fb323c344da8856e77d))
+
+
+### Bug Fixes
+
+* jenkins build return ([bf57624](https://github.com/olebergen/tapir/commit/bf576242415236fbc753fcabf44cb3c828aca8a0))
+* sort services ([94b61a0](https://github.com/olebergen/tapir/commit/94b61a0cd0ee34c6c74ad99fdd9ea7e72a8e593e))
+
 ## [1.2.4](https://github.com/olebergen/tapir/compare/v1.2.3...v1.2.4) (2025-03-18)
 
 
