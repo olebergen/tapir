@@ -63,7 +63,7 @@ export const init = async () =>
             describe: 'Select the PR to deploy',
           })
           .conflicts('tag', 'select')
-          .option('platformBranchOrPr', {
+          .option('platform', {
             type: 'string',
             alias: 'p',
             describe: 'Platform branch or PR to deploy',
@@ -75,7 +75,7 @@ export const init = async () =>
           testsystem: argv.testsystem,
           tag: argv.tag,
           test: argv.test,
-          platformBranchOrPr: argv.platformBranchOrPr,
+          platform: argv.platform,
         });
       },
     })

@@ -10,11 +10,11 @@ export const deployDhr = async ({
   tag,
   select,
   test,
-  platformBranchOrPr,
+  platform,
 }: {
   testsystem: string;
   test: boolean;
-  platformBranchOrPr: string;
+  platform: string;
   tag?: string;
   select?: boolean;
 }) => {
@@ -79,7 +79,7 @@ export const deployDhr = async ({
 
   searchParams.append('TESTSYSTEM', zealTestsystemUrl(testsystem));
   searchParams.append('DHR_FRONTEND_VERSION', frontendVersion);
-  searchParams.append('PLATFORM_BRANCH_OR_PR', platformBranchOrPr);
+  searchParams.append('PLATFORM_BRANCH_OR_PR', platform);
 
   url.search = searchParams.toString();
 

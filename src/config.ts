@@ -16,10 +16,10 @@ const { parsed } = dotenv.config({ path: path.env });
 
 export const env = {
   USER: os.userInfo().username,
-  JENKINS_USER: parsed!.JENKINS_USER || process.env.JENKINS_USER,
-  JENKINS_TOKEN: parsed!.JENKINS_TOKEN || process.env.JENKINS_TOKEN,
-  TESTSYSTEM_HOST: parsed!.TESTSYSTEM_HOST || process.env.TESTSYSTEM_HOST,
-  SSH_AUTH_SOCK: parsed!.SSH_AUTH_SOCK || process.env.SSH_AUTH_SOCK,
+  JENKINS_USER: process.env.JENKINS_USER || parsed!.JENKINS_USER,
+  JENKINS_TOKEN: process.env.JENKINS_TOKEN || parsed!.JENKINS_TOKEN,
+  TESTSYSTEM_HOST: process.env.TESTSYSTEM_HOST || parsed!.TESTSYSTEM_HOST,
+  SSH_AUTH_SOCK: process.env.SSH_AUTH_SOCK || parsed!.SSH_AUTH_SOCK,
   TEST: parsed?.TEST || process.env.TEST,
 } as const;
 
@@ -32,12 +32,12 @@ for (const [key, value] of Object.entries(env)) {
 
 export const isTestmode = (flag?: boolean) => env.TEST === '1' || env.TEST === 'true' || flag;
 
-const credentials = `${env.JENKINS_USER}:${env.JENKINS_TOKEN}`;
+const jenkinsCredentials = `${env.JENKINS_USER}:${env.JENKINS_TOKEN}`;
 
 export const config = {
   jenkins: {
     url: 'https://platform-jenkins.test.h.zeal.zone',
-    authorization: 'Basic ' + Buffer.from(credentials).toString('base64'),
+    authorization: 'Basic ' + Buffer.from(jenkinsCredentials).toString('base64'),
     jobs: {
       deployDhrFrontend: '/job/DEPLOY_TEST_AWS__DHR_FRONTEND',
       prolong: '/job/PLATFORM_AWS_PROLONG_TEST_SYSTEM',
@@ -45,8 +45,7 @@ export const config = {
       destroy: '/job/PLATFORM_AWS_TESTSYSTEM_DELETE',
     },
     buildWithParameters: '/buildWithParameters',
-    builds: '/api/json?tree=builds[url,result,timestamp]',
-    // builds: '/api/json?tree=builds[number,url,result,timestamp,duration]',
+    builds: '/api/json?tree=builds[url,result,timestamp]', // duration, number
   },
 } as const;
 
