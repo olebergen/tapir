@@ -38,7 +38,7 @@ export const serviceLogs = async ({
       type: 'select',
       name: 'k8sService',
       message: 'Pick a service',
-      choices: serviceList,
+      choices: serviceList.sort((a, b) => a.title.localeCompare(b.title)),
     });
 
     if (!k8sService) exitWithError('No service selected');
@@ -50,8 +50,6 @@ export const serviceLogs = async ({
   const cmdService = listSelection?.name || service;
 
   const logCommand = `kubectl logs -n ${cmdNamespace} -f $(kubectl get pods -n ${cmdNamespace} -l app=${cmdService} -o jsonpath="{.items[0].metadata.name}")`;
-
-  // filter
 
   return executeSSH(logCommand, {
     testsystem,
