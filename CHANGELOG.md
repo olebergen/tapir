@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/olebergen/tapir/compare/v1.3.0...v1.3.1) (2025-03-20)
+
+
+### Bug Fixes
+
+* add bin to package.json ([d3a9649](https://github.com/olebergen/tapir/commit/d3a964977ba561c1f8b4aa6fb11f4c9b077ac8d3))
+
 ## [1.3.0](https://github.com/olebergen/tapir/compare/v1.2.4...v1.3.0) (2025-03-19)
 
 
