@@ -1,3 +1,5 @@
+- [configstore](https://github.com/sindresorhus/configstore)
+
 - deploy fplus frontend
 
-- logs script timestamp aus iso zeit? oder anders ms rein
+- option to disable colors

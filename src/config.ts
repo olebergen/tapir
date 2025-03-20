@@ -1,6 +1,6 @@
 import os from 'os';
 import dotenv from 'dotenv';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { exitWithError } from './utils/error.ts';
 
@@ -8,8 +8,8 @@ export const basePath = dirname(fileURLToPath(import.meta.url)).slice(0, -4); //
 
 export const path = {
   root: basePath,
-  env: basePath + '/.env',
-  tmp: basePath + '/.tmp',
+  env: join(basePath, '.env'),
+  tmp: join(basePath, '.tmp'),
 } as const;
 
 const { parsed } = dotenv.config({ path: path.env });

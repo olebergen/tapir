@@ -2,6 +2,9 @@
   "name": "tapir",
   "version": "1.3.0",
   "type": "module",
+  "bin": {
+    "tapir": "./bin/tap"
+  },
   "scripts": {
     "types": "tsc --noEmit",
     "lint": "eslint . --ext .ts"
