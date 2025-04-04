@@ -50,6 +50,7 @@ export const deployDhr = async ({
     });
 
     if (!pr) {
+      // kein Fehler wegen cancel
       process.exit(1);
     }
 
@@ -58,17 +59,19 @@ export const deployDhr = async ({
 
   if (!frontendVersion) {
     const currentPr = await currentPathPrNumberJSON();
-    if (currentPr.code !== 0) {
-      exitWithError(currentPr.stderr);
+    if (currentPr.code === 0) {
+      const prNumber = JSON.parse(currentPr.stdout).number;
+
+      if (typeof prNumber !== 'number') {
+        exitWithError('PR number is not a number');
+      }
+
+      frontendVersion = 'PR_' + prNumber;
+    } else {
+      if (currentPr.stderr === 'no pull requests found for branch "main"') {
+        frontendVersion = 'latest'; // deploy main
+      } else exitWithError(currentPr.stderr);
     }
-
-    const prNumber = JSON.parse(currentPr.stdout).number;
-
-    if (typeof prNumber !== 'number') {
-      exitWithError('PR number is not a number');
-    }
-
-    frontendVersion = 'PR_' + prNumber;
   }
 
   const url = new URL(
