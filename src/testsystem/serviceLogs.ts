@@ -51,7 +51,7 @@ export const serviceLogs = async ({
 
   const logCommand = `kubectl logs -n ${cmdNamespace} -f $(kubectl get pods -n ${cmdNamespace} -l app=${cmdService} -o jsonpath="{.items[0].metadata.name}")`;
 
-  return executeSSH(logCommand, {
+  await executeSSH(logCommand, {
     testsystem,
     streamLogs: {
       enable: true,

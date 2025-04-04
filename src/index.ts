@@ -7,6 +7,7 @@ import { destroy } from './jenkins/destroy.ts';
 import { createDir, fileExists } from './utils/file.ts';
 import { serviceLogs } from './testsystem/serviceLogs.ts';
 import { logLevels } from './utils/log.ts';
+import { e2e } from './testsystem/e2e.ts';
 
 export const init = async () =>
   yargs(process.argv.slice(2))
@@ -70,15 +71,14 @@ export const init = async () =>
             describe: 'Platform branch or PR to deploy',
             default: 'master',
           }),
-      handler: async (argv) => {
+      handler: async (argv) =>
         deployDhr({
           select: argv.select,
           testsystem: argv.testsystem,
           tag: argv.tag,
           test: argv.test,
           platform: argv.platform,
-        });
-      },
+        }),
     })
     .command({
       command: 'logs',
@@ -118,7 +118,7 @@ export const init = async () =>
             alias: 'l',
             describe: 'List available services',
           }),
-      handler: async (argv) => {
+      handler: async (argv) =>
         serviceLogs({
           testsystem: argv.testsystem,
           service: argv.service,
@@ -127,8 +127,31 @@ export const init = async () =>
           timestamp: argv.timestamp,
           list: argv.list,
           filter: argv.filter,
-        });
-      },
+        }),
+    })
+    .command({
+      command: 'e2e',
+      describe: 'Run e2e tests',
+      builder: (y) =>
+        y
+          .options('project', {
+            type: 'string',
+            alias: 'p',
+            describe: 'Project to run e2e tests for',
+            default: 'dream-house-raffle',
+          })
+          .option('ui', {
+            type: 'boolean',
+            alias: 'u',
+            describe: 'Use the playwright --ui option',
+            default: false,
+          }),
+      handler: async (argv) =>
+        e2e({
+          testsystem: argv.testsystem,
+          project: argv.project,
+          ui: argv.ui,
+        }),
     })
     .help()
     .parse();

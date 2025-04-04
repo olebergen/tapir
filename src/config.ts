@@ -3,13 +3,33 @@ import dotenv from 'dotenv';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { exitWithError } from './utils/error.ts';
+import { fileExists } from './utils/file.ts';
 
 export const basePath = dirname(fileURLToPath(import.meta.url)).slice(0, -4); // slice away /bin
+
+const findProjectPath = async (project: string) => {
+  const inHomePath = join(os.homedir(), project);
+  const existsInHome = await fileExists(inHomePath);
+  if (existsInHome) return inHomePath;
+
+  const inDirAbovePath = join(basePath, '..', project);
+  const existsInDirAbove = await fileExists(inDirAbovePath);
+  if (existsInDirAbove) return inDirAbovePath;
+
+  // todo weg wenns kein monorepo mehr ist
+  const inMonorepoAbovePath = join(basePath, '..', 'reactor', 'apps', project);
+  const existsInMonorepoAbove = await fileExists(inMonorepoAbovePath);
+  if (existsInMonorepoAbove) return inMonorepoAbovePath;
+
+  return null;
+};
 
 export const path = {
   root: basePath,
   env: join(basePath, '.env'),
   tmp: join(basePath, '.tmp'),
+  dhr: await findProjectPath('dream-house-raffle'),
+  fplus: await findProjectPath('freiheitplus'),
 } as const;
 
 const { parsed } = dotenv.config({ path: path.env });

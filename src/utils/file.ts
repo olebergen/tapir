@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 
 export const fileExists = async (path: string) =>
   fs
-    .access(path)
+    .lstat(path)
     .then(() => true)
     .catch(() => false);
 export const writeFile = async (path: string, content: string) => fs.writeFile(path, content);
