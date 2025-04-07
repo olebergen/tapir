@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/olebergen/tapir/compare/v1.3.1...v1.4.0) (2025-04-04)
+
+
+### Features
+
+* add e2e script ([f303038](https://github.com/olebergen/tapir/commit/f303038b2d1e3280204b51c15107fc0a178adc82))
+
+
+### Bug Fixes
+
+* deploy latest on main ([311a8fe](https://github.com/olebergen/tapir/commit/311a8fe67c25dd7271583ec568574c725222c1fe))
+
 ## [1.3.1](https://github.com/olebergen/tapir/compare/v1.3.0...v1.3.1) (2025-03-20)
 
 
