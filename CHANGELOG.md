@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/olebergen/tapir/compare/v1.4.0...v1.4.1) (2025-04-07)
+
+
+### Bug Fixes
+
+* linter ([be5a814](https://github.com/olebergen/tapir/commit/be5a814d646642e342553f4f057ef1288236db5a))
+
 ## [1.4.0](https://github.com/olebergen/tapir/compare/v1.3.1...v1.4.0) (2025-04-04)
 
 
