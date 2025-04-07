@@ -81,7 +81,7 @@ export const deployDhr = async ({
   const searchParams = new URLSearchParams();
 
   searchParams.append('TESTSYSTEM', zealTestsystemUrl(testsystem));
-  searchParams.append('DHR_FRONTEND_VERSION', frontendVersion);
+  searchParams.append('DHR_FRONTEND_VERSION', frontendVersion || 'latest');
   searchParams.append('PLATFORM_BRANCH_OR_PR', platform);
 
   url.search = searchParams.toString();
